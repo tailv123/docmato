@@ -4,16 +4,14 @@ import pickle
 import string
 import tensorflow as tf
 import nltk
-from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
 import tensorflow_hub as hub
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 import re
 import requests
-
 requests.packages.urllib3.disable_warnings()
-
 import ssl
 
 try:
@@ -27,21 +25,27 @@ else:
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
-
-def preprocess_sentences(input_sentences):
-    output=[]
-    stemmer = PorterStemmer()
-    for sentence in input_sentences:
-        sentence = re.sub(r"ToMV", "tomato mosaic virus ", sentence)
-        sentence = re.sub(r"TMV", "tobacco mosaic virus", sentence)
-        sentence = re.sub(r"CMV", "cucumber mosaic virus", sentence)
-        for p in string.punctuation:
-            sentence = sentence.replace(p, '')
-        sentence= sentence.lower()
-        sentence=' '.join([stemmer.stem(w) for w in sentence.split()])
-        output.append(sentence)
-    return output
-
+#data preparation
+# def preprocess_sentences(input_sentences):
+#     output=[]
+#     lemmatizer = WordNetLemmatizer()
+#     stop_words=['be','is','are','and','the','an','a','was','were','they','you','we','you','he','she','i',
+#                 'me','her','his','to','from']
+#     for sentence in input_sentences:
+#         sentence = re.sub(r"ToMV", "tomato mosaic virus", sentence)
+#         sentence = re.sub(r"TMV", "tobacco mosaic virus", sentence)
+#         sentence = re.sub(r"CMV", "cucumber mosaic virus", sentence)
+#         for p in string.punctuation:
+#             sentence = sentence.replace(p, '')
+#         for s in stop_words:
+#             sentence = sentence.replace(s,'')
+#
+#         sentence= sentence.lower()
+#
+#         sentence=' '.join([lemmatizer.lemmatize(w) for w in sentence.split()])
+#
+#         output.append(sentence)
+#     return output
 # dataset = pd.read_csv("Q&A for mosaic.csv", encoding='utf-8')
 # module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
 # model = hub.load(module_url)
@@ -51,7 +55,6 @@ def preprocess_sentences(input_sentences):
 # dataset['Question_Vector'] = dataset.Question_Vector.map(np.array)
 # pickle.dump(dataset, open('dataset.pkl', 'wb'))
 
-
 class DialogueManager(object):
     def __init__(self):
         #self.model = tf.saved_model.load("../data/tmp/mobilenet/1/")
@@ -60,27 +63,36 @@ class DialogueManager(object):
         self.questions = self.dataset.Questions
         self.QUESTION_VECTORS = np.array(self.dataset.Question_Vector)
         self.COSINE_THRESHOLD = 0.5
-
         self.chitchat_bot = ChatBot("Chatterbot")
         trainer = ChatterBotCorpusTrainer(self.chitchat_bot)
         trainer.train("chatterbot.corpus.english")
 
-    def preprocess_sentences(input_sentences):
+    def preprocess_sentences(self,input_sentences):
         output = []
-        stemmer = PorterStemmer()
+        lemmatizer = WordNetLemmatizer()
+        stop_words = ['be', 'is', 'are', 'and', 'the', 'an', 'a', 'was', 'were', 'they', 'you', 'we', 'you', 'he',
+                      'she', 'i','me', 'her', 'his', 'to', 'from']
         for sentence in input_sentences:
             sentence = re.sub(r"ToMV", "tomato mosaic virus", sentence)
             sentence = re.sub(r"TMV", "tobacco mosaic virus", sentence)
             sentence = re.sub(r"CMV", "cucumber mosaic virus", sentence)
             for p in string.punctuation:
-                sentence = sentence.replace(p,'')
+                sentence = sentence.replace(p, '')
+            for s in stop_words:
+                sentence = sentence.replace(s, '')
+
             sentence = sentence.lower()
-            sentence = ' '.join([stemmer.stem(w) for w in sentence.split()])
+
+            sentence = ' '.join([lemmatizer.lemmatize(w) for w in sentence.split()])
+
             output.append(sentence)
+
         return output
 
+
     def embed(self,input):
-        return self.model(preprocess_sentences([input]))
+        return self.model(self.preprocess_sentences([input]))
+
 
     def cosine_similarity(self,v1, v2):
         mag1 = np.linalg.norm(v1)
@@ -99,9 +111,8 @@ class DialogueManager(object):
             res.append((sim, d[:100], i))
         return sorted(res, key=lambda x: x[0], reverse=True)
 
-
     def generate_answer(self, question):
-        '''This will return list of all questions according to their similarity,but we'll pick topmost/most relevant question'''
+        #Choose the most similar question in database
         most_relevant_row = self.semantic_search(question, self.questions, self.QUESTION_VECTORS)[0]
         print(most_relevant_row)
         if most_relevant_row[0][0]>=self.COSINE_THRESHOLD:
