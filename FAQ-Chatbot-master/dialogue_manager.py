@@ -26,26 +26,27 @@ else:
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 #data preparation
-# def preprocess_sentences(input_sentences):
-#     output=[]
-#     lemmatizer = WordNetLemmatizer()
-#     stop_words=['be','is','are','and','the','an','a','was','were','they','you','we','you','he','she','i',
-#                 'me','her','his','to','from']
-#     for sentence in input_sentences:
-#         sentence = re.sub(r"ToMV", "tomato mosaic virus", sentence)
-#         sentence = re.sub(r"TMV", "tobacco mosaic virus", sentence)
-#         sentence = re.sub(r"CMV", "cucumber mosaic virus", sentence)
-#         for p in string.punctuation:
-#             sentence = sentence.replace(p, '')
-#         for s in stop_words:
-#             sentence = sentence.replace(s,'')
-#
-#         sentence= sentence.lower()
-#
-#         sentence=' '.join([lemmatizer.lemmatize(w) for w in sentence.split()])
-#
-#         output.append(sentence)
-#     return output
+def preprocess_sentences(input_sentences):
+    output=[]
+    lemmatizer = WordNetLemmatizer()
+    stop_words = ['be', 'is', 'are', 'and', 'the', 'an', 'a', 'was', 'were', 'they', 'you', 'we', 'you', 'he',
+                  'she', 'i', 'me', 'her', 'his', 'to', 'from', 'can', 'would', 'will', 'does', 'do', 'of', 'for', 'with', ]
+
+    for sentence in input_sentences:
+        sentence = re.sub(r"ToMV", "tomato mosaic virus", sentence)
+        sentence = re.sub(r"TMV", "tobacco mosaic virus", sentence)
+        sentence = re.sub(r"CMV", "cucumber mosaic virus", sentence)
+        for p in string.punctuation:
+            sentence = sentence.replace(p, '')
+
+        sentence= sentence.lower()
+
+        sentence= ' '.join([w for w in sentence.split() if w not in stop_words])
+
+        sentence = ' '.join([lemmatizer.lemmatize(w) for w in sentence.split()])
+
+        output.append(sentence)
+    return output
 # dataset = pd.read_csv("Q&A for mosaic.csv", encoding='utf-8')
 # module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
 # model = hub.load(module_url)
@@ -67,31 +68,8 @@ class DialogueManager(object):
         trainer = ChatterBotCorpusTrainer(self.chitchat_bot)
         trainer.train("chatterbot.corpus.english")
 
-    def preprocess_sentences(self,input_sentences):
-        output = []
-        lemmatizer = WordNetLemmatizer()
-        stop_words = ['be', 'is', 'are', 'and', 'the', 'an', 'a', 'was', 'were', 'they', 'you', 'we', 'you', 'he',
-                      'she', 'i','me', 'her', 'his', 'to', 'from']
-        for sentence in input_sentences:
-            sentence = re.sub(r"ToMV", "tomato mosaic virus", sentence)
-            sentence = re.sub(r"TMV", "tobacco mosaic virus", sentence)
-            sentence = re.sub(r"CMV", "cucumber mosaic virus", sentence)
-            for p in string.punctuation:
-                sentence = sentence.replace(p, '')
-            for s in stop_words:
-                sentence = sentence.replace(s, '')
-
-            sentence = sentence.lower()
-
-            sentence = ' '.join([lemmatizer.lemmatize(w) for w in sentence.split()])
-
-            output.append(sentence)
-
-        return output
-
-
     def embed(self,input):
-        return self.model(self.preprocess_sentences([input]))
+        return self.model(preprocess_sentences([input]))
 
 
     def cosine_similarity(self,v1, v2):
