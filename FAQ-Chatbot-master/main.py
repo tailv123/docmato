@@ -16,4 +16,4 @@ def get_bot_response():
     return str(dialogue_manager.generate_answer(userText))
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0',port=int(80))
