@@ -1,4 +1,4 @@
-# DocMate
+# DocMato
 >The project aims to develop a website that will serve as a comprehensive platform for tomato farmers and virology enthusiasts in Victoria, to explore characteristics and answer queries related to tomato-based Mosaic virus and its subtypes. The project will proceed in 3 iterations with the fully functional shippable product going live after the first iteration with features that provide immediate information-based assistance to users right away. Subsequent increments will be delivered with each passing iteration to add enhanced functionality in an attempt to provide the complete technology package that helps users understand, research, incorporate preventive measures and ultimately avoid losses incurred due to Mosaic-Virus spread across tomato crops.
 
 # Motivation
