@@ -48,7 +48,7 @@ def preprocess_sentences(input_sentences):
         output.append(sentence)
     return output
 # dataset = pd.read_csv("Q&A for mosaic.csv", encoding='utf-8')
-# module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
+# module_url = "https://tfhub.dev/google/universal-sentence-encoder-large/5"
 # model = hub.load(module_url)
 # def embed(input):
 #   return model(preprocess_sentences([input]))
@@ -59,12 +59,21 @@ def preprocess_sentences(input_sentences):
 class DialogueManager(object):
     def __init__(self):
         #self.model = tf.saved_model.load("../data/tmp/mobilenet/1/")
-        self.model = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
+        self.model = hub.load("https://tfhub.dev/google/universal-sentence-encoder-large/5")
         self.dataset = pickle.load(open('dataset.pkl', mode='rb'))
         self.questions = self.dataset.Questions
         self.QUESTION_VECTORS = np.array(self.dataset.Question_Vector)
         self.COSINE_THRESHOLD = 0.5
-        self.chitchat_bot = ChatBot("Chatterbot")
+        self.chitchat_bot = ChatBot(
+    'ChatterBot',
+    logic_adapters=[
+        {
+            'import_path': 'chatterbot.logic.BestMatch',
+            'default_response': 'I am sorry, but I do not understand.',
+            'maximum_similarity_threshold': 0.95
+        }
+    ]
+)
         trainer = ChatterBotCorpusTrainer(self.chitchat_bot)
         trainer.train("chatterbot.corpus.english")
 
