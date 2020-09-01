@@ -122,7 +122,7 @@ class DialogueManager(object):
         query_vec = np.array(self.embed(query))
         res = []
         for i, d in enumerate(data):
-            qvec = np.asarray(np.array(self.dataset.Question_Vector)[0][3:-2].split(),dtype='float').ravel()
+            qvec = np.asarray(vectors[i][3:-2].split(),dtype='float').ravel()
             sim = self.cosine_similarity(query_vec, qvec)
             res.append((sim, d[:100], i))
         return sorted(res, key=lambda x: x[0], reverse=True)
