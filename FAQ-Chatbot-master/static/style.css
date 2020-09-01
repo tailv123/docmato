@@ -1,5 +1,5 @@
 body {
-    font-family: Garamond;
+    font-family: Arial;
 }
 
 .header h1 {
@@ -8,7 +8,7 @@ body {
     margin-top: 0;   
     text-align: center;
     font-size: 40px;
-    background-color:#e8babc;
+    background-color:#008051;
     margin-left: auto;
     margin-right: auto;
     border: 1px solid #d9d9d9;
@@ -19,7 +19,7 @@ body {
 .header h1 img {
  float: left;
 
-   width: 200px;
+  width: 100px;
   height: 44px;
   background: #555;
 }
@@ -33,22 +33,22 @@ h3 {
 }
 
 #maindiv {
-       margin-left: auto;
+    margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
-    width: 100%;
+    margin-top: 20px; 
+    width: 80%;
     height: 700px;
-    border: 2px solid #e8babc;
+    border: 2px solid #b3ccff;
     border-radius: 15px;
     overflow: auto;
     background: #f5f5f0;
 }
 
 
-
 #chatbox {
     margin-left: auto;
     margin-right: auto;
+    ;
 }
 
 #userInput {
@@ -57,11 +57,11 @@ h3 {
 }
 
 #textInput {
-    width: 90%;
+    width: 95px;
     border: none;
-    border-bottom: 2px solid #f7df94;
+    border-bottom: 3px solid #004080;
     font-family: monospace;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 #buttonInput {
@@ -80,7 +80,7 @@ h3 {
 }
 
 .userText span {
-    background-color: #ffe6b3;
+    background-color: #f0ffcc;
     padding: 10px;
     border-radius: 12px;
 }
@@ -106,7 +106,7 @@ h3 {
 }
 
 .botText span {
-    background-color: #84cfaf;
+    background-color: #ffe7cc;
     padding: 10px;
     border-radius: 12px;
 }
@@ -128,7 +128,7 @@ h3 {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 20px;
 }
 
 /* Track */
@@ -140,6 +140,7 @@ h3 {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #f2f2f2; 
+  border-radius: 10px;
 }
 
 /* Handle on hover */

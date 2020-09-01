@@ -1,10 +1,8 @@
 import numpy as np
 import pandas as pd
-import pickle
 import string
 import tensorflow as tf
-import nltk
-from nltk.stem import PorterStemmer
+import mysql.connector
 from nltk.stem import WordNetLemmatizer
 import tensorflow_hub as hub
 from chatterbot import ChatBot
@@ -47,6 +45,36 @@ def preprocess_sentences(input_sentences):
 
         output.append(sentence)
     return output
+
+import mysql.connector
+import pandas as pd
+
+def fetch_table_data(table_name):
+    # The connect() constructor creates a connection to the MySQL server and returns a MySQLConnection object.
+    cnx = mysql.connector.connect(
+        host='35.201.10.14',
+        database='wordpress',
+        user='wordpress',
+        password='tyledaniels2019'
+    )
+
+    cursor = cnx.cursor()
+    cursor.execute('select * from ' + table_name)
+
+    header = [row[0] for row in cursor.description]
+
+    rows = cursor.fetchall()
+
+    # Closing connection
+    cnx.close()
+
+    return header, rows
+
+
+def to_df(table_name):
+    df=pd.DataFrame([list(i) for i in fetch_table_data(table_name)[1][1:]], columns =list(fetch_table_data(table_name)[1][0]), dtype = float)
+    return df
+
 # dataset = pd.read_csv("Q&A for mosaic.csv", encoding='utf-8')
 # module_url = "https://tfhub.dev/google/universal-sentence-encoder-large/5"
 # model = hub.load(module_url)
@@ -54,13 +82,14 @@ def preprocess_sentences(input_sentences):
 #   return model(preprocess_sentences([input]))
 # dataset['Question_Vector'] = dataset.Questions.map(embed)
 # dataset['Question_Vector'] = dataset.Question_Vector.map(np.array)
-# pickle.dump(dataset, open('dataset.pkl', 'wb'))
+# dataset.to_csv('data_vector.csv',index=False)
+
 
 class DialogueManager(object):
     def __init__(self):
         #self.model = tf.saved_model.load("../data/tmp/mobilenet/1/")
         self.model = hub.load("https://tfhub.dev/google/universal-sentence-encoder-large/5")
-        self.dataset = pickle.load(open('dataset.pkl', mode='rb'))
+        self.dataset = to_df('data_vector')
         self.questions = self.dataset.Questions
         self.QUESTION_VECTORS = np.array(self.dataset.Question_Vector)
         self.COSINE_THRESHOLD = 0.5
@@ -93,7 +122,7 @@ class DialogueManager(object):
         query_vec = np.array(self.embed(query))
         res = []
         for i, d in enumerate(data):
-            qvec = vectors[i].ravel()
+            qvec = np.asarray(np.array(self.dataset.Question_Vector)[0][3:-2].split(),dtype='float').ravel()
             sim = self.cosine_similarity(query_vec, qvec)
             res.append((sim, d[:100], i))
         return sorted(res, key=lambda x: x[0], reverse=True)
