@@ -8,14 +8,14 @@ awareness and establishes prescribed preventive measures is the need of the hour
 # Credentials for wordpress programming interface at https://www.docmato.ga/wp-admin/
 Two Administrator accounts:
 username: ewarrior
-password: Gautam_12345
+password: xxxxxx
 
 username: vlee0025@student.monash.edu
-password: k.Wp7BZb
+password: xxxxx
 
 # Credentials for the MySQL Database
 username: root
-password: mbi4TjfAbBXLxr
+password: xxxxxxx
 
 instance : tomato-vm
 
@@ -41,7 +41,7 @@ create a folder in in github to upload the screenshots and then add here.
   - Details about the virus characteristics and preventive measures.
   - Suggest specific control and  prevention strategies for affected plants.
   - Virus Identification capability using upload picture portal.
-  - 14-Day education program on how to grow healthy tomatoes.
+  - 11-Weeks education program on how to grow healthy tomatoes.
 
 
 # APIs
@@ -54,18 +54,20 @@ create a folder in in github to upload the screenshots and then add here.
 Unit Testing and black box tests to validate Quality-Assurance and ensure reliability of the individual components as well as the whole system
 
 # How to use?
- - Navigation Menu bars are on the home page, users can have a overview on which section they are interested in
- - Home page provide preview of news, videos about preventing Mosaic Virus and Gallery of Mosaic Virus, users can view as they like
- - Users can click the 'Read More' button on the front page to have a detailed introduction about Mosaic Virus
- - Users can click the News in menu bar to view more details about the Mosaic Virus
- - Users can click Identification feature and redirect to upload image portal to check virus name with 3 clicks.
- - Users can click and start 14-Day healthy tomato educational program and get step-by-step instructions.
- - Chatbot in menu bar provide user a robot for answering general question about Mosaic Virus automatically
- - About us in the menu bar briefly introduce our project and teammembers
- - 'Contact us' shows the contact address.
-
+  WORDPRESS:
+  - GO to https://www.docmato.ga/
+  - Asks for Passowrd and add 'xxxxxxx' redirects to website docmato.ga homepage.
+  - Click login and add admin username/ password - redirects to dashboard.
+  - Click on Pages and list of deployed webpages appears, choose which one to edit.
+  - Click on plugins and installed plugins appears.
+  - Click on Customise to change. implement or delete configured navigation menu's, pictures, layouts, designs and other visual editors.
+  
+  Backend at Google Cloud Platform:
+  -
+  
 # Contribute
-Github repository at https://github.com/tailv123/docmato for collaboration and version control.
+Github repository at https://github.com/tailv123/docmato for collaboration and version control
+-docmoto.ga/php-admin/ file for configuration.
 
 # Credits
 Don Bopearachchi, Fatumei HUO, Gautam Raj, Viet Lee, Xu GAO
@@ -75,6 +77,9 @@ Licenses for Google cloud platform is valid for 3 months using student account.
 Wordpress is open software and free to use.
 Hosting is free for 3-month trial period.
 Https and Domain is free to use for 3 months under trial.
+Images are from pexel free to use license -details in copyright documnet on Mahara SM Page.
+Images from istock.com standard use license -details in copyright document on Mahara SM Page.
+Videos from youtube.com FAIR USE License.
 
 
 
