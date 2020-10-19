@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Tree Quiz | {{ title }}</title>
+{% endblock %}
+
+{% block content %}
+<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 index_content">
+        <h2>How to Play</h2>
+        <div class="row">
+            <ul class="col-xs-10 col-xs-offset-1 how-to-play">
+              <li>You will be presented with 10 true/false questions of mosaic virus on tomatoes.</li>
+              <li>10 points for each correct answer.</li>
+              <li>Your game play is saved, linked to your username. So choose a unique name?</li>
+              <li>You can exit the game at any stage by clicking the Home on menu options, or by closing the tab.</li>
+              <li>You can take up where you left off at any stage by simply signing in with your username.</li>
+            </ul>
+        </div>
+        <div>
+            <form action="{{ url_for('index') }}">
+                <button class="btn home-btn" autofocus>Sign In to Play!</button>
+            </form>
+        </div>    
+</div>
+{% endblock %}

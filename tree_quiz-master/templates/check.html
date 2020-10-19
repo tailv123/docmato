@@ -1,0 +1,35 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Tree Quiz | {{ title }}</title>
+{% endblock %}
+
+{% block content %}
+<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 index_content">
+    <div class="pre-info">
+        <h3>Do you know your tomatoes? </h3>
+        <p>If you have already played, just enter the same username to continue where you left off!</p>
+        <p>For game instructions please click <a href="{{ url_for('instructions') }}">here.</a></p>
+
+    </div>
+<!--    <div class="sign-in">-->
+<!--        <form method="POST" action="/check_username">-->
+<!--            <input class="form-control name-input" type="text" id="username" name="username"-->
+<!--            placeholder=" Enter username (alphanumeric)" pattern="^[a-zA-Z0-9]+$" autofocus required/>-->
+
+<!--            <button class="btn sign-in-btn">Sign in</button>-->
+<!--        </form>-->
+<!--    </div>-->
+    <div class="wel_msg">
+        <p>{{ welcome_msg }}</p>
+    </div>
+    <div class="start-btn-container">
+        {% if hide_start_btn == False %}
+        <p class="start-game-msg"></p>
+        <form method="GET" action="/question/{{ username }}">
+            <button class="btn start-btn">Play Game!</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Tree Quiz | {{ title }}</title>
+{% endblock %}
+
+
+{% block content %}
+<div class="col-xs-10 col-xs-offset-1 quiz_content">
+    <div class="row">
+        <div class="game_data">
+            <div class="col-xs-6 col-sm-4 question_num">
+                <h3>Question: {{ cur_question }}/10</h3>
+            </div>
+<!--            <div class="hidden-xs col-sm-4 attempt_num">-->
+<!--                <h3>Attempt: {{ attempt }}</h3>-->
+<!--            </div>-->
+            <div class="col-xs-6 col-sm-4 cur_score">
+                <h3>Score: {{ cur_score }}/{{ max_score }}</h3>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row all-question_content">
+        <div class="question_content">
+            <div class="col-xs-12 col-md-9 col-lg-6 tree_img_container"> 
+                <img class="tree_img" src="{{ tree_image }}" alt="Picture of tree">
+            </div>
+            
+            <div class="col-xs-12 col-md-3 col-lg-6 q_container"> 
+                {% if answer_state == 0 %}
+                <i class="far fa-question-circle question_icon"></i>
+                {% elif answer_state == 1 %}
+                <i class="far fa-check-circle correct_icon"></i>
+                {% else %}
+                <i class="far fa-times-circle wrong_icon"></i>
+                {% endif %}
+                <p class="message">{{ message }}</p>
+                {% if hide_next_btn %}
+                    <div class="submit_container">
+                        <form method="POST" action="/question/{{ username }}">
+                            <input class="form-control answer-input" type="text" id="answer" name="answer" 
+                            placeholder=" Enter true or false answer" pattern="^[a-zA-Z0-9]+$" autofocus required>
+                            <button class="btn submit-btn">Check Answer!</button>
+                        </form>
+                    </div>
+                {% else %}
+                    
+                    <div class="next_btn_container">
+                        {% if cur_question < 10 %}
+                            <form method="GET" action="/question/{{ username }}">
+                                <button class="btn next-btn" autofocus>Next Question!</button>
+                            </form>
+                        {% else %}
+                            <form method="GET" action="/question/{{ username }}">
+                                <button class="btn finish-game-btn" autofocus>Finish Game</button>
+                            </form>
+                        {% endif %}    
+                    </div>
+                    
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
