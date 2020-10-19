@@ -77,9 +77,6 @@ The tests are written quite explicitly, to ensure it is clear as to what each te
 In run.py there are 10 functions that do not render html templates. 8 of these have automated tests written in test_quiz.py. The other 2 use text book code to read and write to .json files.
 As the .json files would be constantly changing, these were manually tested. For all template rendering functions manual testing was performed.
 
-The automated test_quiz.py file can be found at:  
-https://github.com/dcasey720/tree_quiz/blob/master/test_quiz.py
-
 __Visual Testing__
 
 The dev tool within Google Chrome was used to test that the pages were displaying correctly (alignment, spacing, position etc) across different screen widths.
