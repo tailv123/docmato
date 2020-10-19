@@ -1,18 +1,9 @@
-Practical Python: Tree Quiz
+Practical Python: Tomato Quiz
 ============================
- 
-This is the Milestone Project in Practical Python module for the Code Institutes Diploma in Software Development.
-The project shows my understanding and capabilities in developing web applications using Python, HTML, CSS and JavaScript.
-
-The Tree Quiz is a pictorial quiz, where the user is asked to identify the native Irish trees shown in 10 pictures. 
-The user and the users game playing history is stored, so that the user can leave the game and return at any stage by simply signing in with the same username. 
-This allows for multiple users to play at the same time so long as they are signed into different browsers using different usernames. 
-A leaderboard of the top 5 scores is also maintained.
 
 UX
 ----
 This application was developed with an educational end use in mind. 
-The user in mind would use this application to test their knowledge of Irish tree species and by repeating learn to identify all of the trees.
 
 __User Stories__
 
@@ -23,19 +14,9 @@ User stories were developed to guide game play and desired functions.
 * As a player I should be able to enter my username before starting the game.
 * As a player I expect that only valid username entries will be accepted.
 * As a player I expect that I will be informed of if the username entered has already been used and if so what is the users playing status.
-* As a player I should to have each tree image presented to me one at a time, with a form to enter my answer.
 * As a player I should be informed if my answer was right or wrong before moving on to the next image. 
 * As a player I should expect to have two attempts at answering each question, scoring higher marks for submitting a correct answer on the first attempt.
 * As a player I should see my progress at each question in the quiz, with the question number, attempt and current score clearly shown.
-* As a player on completing the game I expect to have my scores validated against other players and my own past scores, and be shown the leaderboard.
-* As a player after seeing the leader board I should be given the option to exit or play again.
-
-__Mockups__
-
-Mockups were developed using a free online mockup tool, FluidUI. The mockup wireframes allowed for greater visualisation of the how the application should look before starting creating the HTML templates. 
-JPGs of the mockups can be found at GitHub repository for the project at:
-
-https://github.com/dcasey720/tree_quiz/tree/master/mockups.
 
 Features
 -----------------
@@ -82,31 +63,8 @@ __Features Left to Implement__
 * Have a section giving detailed information on each of the tree species. 
 * On the Game Over screen show all the pictures, displaying which ones were answered correctly and which ones were wrong. Use a list to save if the user got each question wrong of right.
 
-Technologies Used
------------------------
-
-* __FluidUI__ (https://www.fluidui.com) was used to develop wireframes for the initial UI design mockups.
-* __Python3__ (https://docs.python.org/3/) was used to develop all back-end code.
-* __HTML5__ (https://www.w3.org/TR/html5/) was used to develop front-end templates.
-* __CSS__ (https://www.w3.org/Style/CSS/) was used for styling of front-end templates.
-* __Flask__ (http://flask.pocoo.org/) microframework was used throughout the project in interacting between the back-end code and front-end templates, rendering templates and acquiring data.
-* __json__ (http://www.json.org/) was used to store and access game play data.
-* __Bootstrap 3.3.7__ (https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css) was used for more effective CSS layout styling. 
-    - __Boostrap Grid__ system was used for content arrangement and responsive behavour when moving between different screen sizes
-    - __Boostrap Navbar__ was used for the main navigation. Collapsible menu was utilised for lower screen resolutions.
-    - __Bootstrap Forms Controls__ were used for the user actions.
-* __Font-Awesome 5.3.1__ (https://use.fontawesome.com/releases/v5.3.1/css/all.css) was for the icons in the header, footer and quiz template.
-* __Unittest__ (https://docs.python.org/3/library/unittest.html) unit testing framework was used for the testing of none template rendering functions.
-
 Testing
 -----------------------
-
-__Code Validation__
-
-* __Python__ was validated using http://pep8online.com/. Both run.py and test_quiz.py are pep8 compliant.
-* __HTML__ was validated using https://validator.w3.org/. Due to the python code embedded in the HTML templates there were a number of errors.
-* __CSS__ was validated using https://jigsaw.w3.org/css-validator/validator. No  errors were found.
-* __Spelling and Grammar__ was validated using Google Docs.
 
 
 __Automated Testing__
@@ -171,10 +129,6 @@ and even increment the users score without entering an answer. The function was 
 | players.json up to date           | OK               | OK             | OK              | OK                       |
 | Play Again Btn                    | OK               | OK             | OK              | OK                       |
 | Refresh (loads quiz.html with new game)| OK          | OK             | OK              | OK                       |
-| __leaderboard.html__                                                                                               |                                                                                
-| Sign in Btn                       | OK               | OK             | OK              | OK                       |
-| matches leaderboard,json          | OK               | OK             | OK              | OK                       |
-| Refresh (reloads leaderboard.html | OK               | OK             | OK              | OK                       |
 | __instructions.html__                                                                                              |                                                                                
 | Sign in Btn                       | OK               | OK             | OK              | OK                       |
 | Refresh (reloads instructions.html| OK               | OK             | OK              | OK                       |
@@ -183,46 +137,10 @@ Multiplayer parallel play was tested by signing in with the two usernames in dif
 Players.json updated correctly without the seperate games conflicting.
 It was also tested if the same username was playing on two different browsers at the same time. The player would be unaware except that questions would be skipped as they are already been answered by the other browser.
 
-Deployment
-------------------------
-
-To deploy the app requires flask to be installed on the machine and the machine should be running python 3.4.3.
-It was noted in development that if python version was set to the newer python 3.6, that the flask framework could not be accessed.
-All requirements can be found in https:  
-//github.com/dcasey720/tree_quiz/blob/master/requirements.txt  
 
 
-__Data Folder__
-
-The data folder contains the dynamic .json files to store game play. 
-Leaderboard.json and players.json are updated with every game. 
-For the the initial game both these must be occupied with an empty list [].
-
-Data folder can be found at:  
-https://github.com/dcasey720/tree_quiz/blob/master/data/tree_lib.json
- 
-
-__Static Folder__
-
-Contains the main.css file for styling within the css folder, all the images for the quiz as well as template images.
-The static folder also contains tree_lib.json, a list of dictionaries of the questions and address to the respectful images. 
-Originally this data was stored in the data folder with the other .json files, but as it should remain static it was moved into the static folder.
-
-Static folder can be found at:  
-https://github.com/dcasey720/tree_quiz/tree/master/static
-
-__Templates Folder__
-
-The templates folder contains all the html templates for the front end of the application. 
-
-Template folder can be found at:  
-https://github.com/dcasey720/tree_quiz/tree/master/templates
 
 __Hosting__
-
-The application is hosted on Heroku and can be accessed at:
-
-https://irish-tree-quiz.herokuapp.com/
 
 A Procfile is required by Heroku to know what language to launch the application as. 
 In Heroku the config variables were set:
@@ -230,24 +148,6 @@ In Heroku the config variables were set:
 IP: 0.0.0.0  
 Port: 5000
 
-__Deployed vs Development__
 
-There is only one code difference between the deployed and development application version.
-
-|       Code       | Deployed | Development |
-| ---------------- | -------- | ----------- | 
-| app.run(debug= ) |  False   |   True      |       
-
-
-Leaderboard.json and players.json are updated during game play and so may differ between the development and deployed versions.
-
-Credits
------------------------------
-
-__Media__
-
-The photos used in this site were obtained from:
-
-https://treecouncil.ie/tree-advice/native-species/
 
 
