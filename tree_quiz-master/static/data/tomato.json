@@ -1,77 +1,77 @@
 [{
         "question": 1,
-        "tree_image": "/static/img/arbutus.jpg",
+        "tomato_image": "/static/img/1.jpg",
 		"details":"Tomato mosaic virus (ToMV) and Tobacco mosaic virus (TMV) are easy to distinguish ?",
-        "tree_name": "false",
+        "tomato_answer": "false",
 		"explain":" They are hard to distinguish"
     },
     {
         "question": 2,
-        "tree_image": "/static/img/ash.jpg",
+        "tomato_image": "/static/img/2.jpg",
 		"details":"Is Yellow leaves the common symptoms of TOMV?",
-        "tree_name": "true",
+        "tomato_answer": "true",
 		"explain":"  Other symptoms are curled, malformed and reduced sized leaves"
     },
     {
         "question": 3,
-        "tree_image": "/static/img/birch.jpg",
+        "tomato_image": "/static/img/3.jpg",
 		"details":"Early detection is easy in summers and winter seasons?",
-        "tree_name": "false",
+        "tomato_answer": "false",
 		"explain":"  Symptoms may be suppressed during cool temperatures. As a result, infected seedlings may not display symptoms until moved to a warm environment."
     },
     {
         "question": 4,
-        "tree_image": "/static/img/hawthorn.jpg",
+        "tomato_image": "/static/img/4.jpg",
 		"details":"Week 1-2 of tomato lifecycle is just about planting the seeding?",
-        "tree_name": "false",
+        "tomato_answer": "false",
 		"explain":"  Soil PH and minerals needs to be determined for a successful yield and additionally adding some dolomite lime into the tomato bed well before planting will provide calcium to the tomato plant. "
 		
     },
     {
         "question": 5,
-        "tree_image": "/static/img/hazel.jpg",
+        "tomato_image": "/static/img/5.jpg",
 		"details":"From week 6-9, tomatoes is more prone to getting infected?",
-        "tree_name": "true",
+        "tomato_answer": "true",
 		"explain":"  Week 6-9 during the flowering and fruition season."
     },
     {
         "question": 6,
-        "tree_image": "/static/img/holly.jpg",
+        "tomato_image": "/static/img/6.jpg",
 		"details":"Smoking near your plant garden does not affect plants in anyway!",
-        "tree_name": "false",
+        "tomato_answer": "false",
 		"explain":"  Tobacco Mosaic Virus is caused by tobacco pathogen mostly due to smokers not washing their hands before touching gardening tools and the plants."
 		
     },
     {
         "question": 7,
-        "tree_image": "/static/img/oak.jpg",
+        "tomato_image": "/static/img/7.jpg",
 		"details":"Watering tomato plants once in alternative days is enough?",
-        "tree_name": "false",
+        "tomato_answer": "false",
 		"explain":"  Tomato crops require watering each day and preferably early morning. In warm temperatures plants should be watered twice a day."
 		
     },
     {
         "question": 8,
-        "tree_image": "/static/img/pine.jpg",
+        "tomato_image": "/static/img/8.jpg",
 		"details":" Planting natural repellants is one of natural defense options that you can employ to protect your tomatoes?",
-        "tree_name": "true",
+        "tomato_answer": "true",
 		"explain":"  Planting natural repellants like ‘Neem tree’ may also confer resistance to tomato plants as well and good neighbors like asparagus, basil with deter virus carrying pests and improve growth."
 		
 		
     },
     {
         "question": 9,
-        "tree_image": "/static/img/willow.jpg",
+        "tomato_image": "/static/img/9.jpg",
 		"details":"Does tomatoes should be plucked when they are slightly ripe ?",
-        "tree_name": "true",
+        "tomato_answer": "true",
 		"explain":"  We recommend plucking when they are slightly ripe, that is, they have changed color, but are still quite firm, and a little green. This works especially well in warmer climates (hello Brisbane) and for colder zones like Victoria, you get a bit more freedom to leave them on the vine a little longer"
 		
     },
     {
         "question": 10,
-        "tree_image": "/static/img/yew.jpg",
+        "tomato_image": "/static/img/10.jpg",
 		"details":"We can eat mosaic virus affected tomatoes",
-        "tree_name": "false",
+        "tomato_answer": "false",
 		"explain":" Throw affected tomatoes out, especially if the harvested part is a part that is directly affected, such as leaves."
     }
 ]

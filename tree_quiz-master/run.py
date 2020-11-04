@@ -77,20 +77,16 @@ def get_welcome_msg(cur_player_data):
 
 
 def get_q_data(cur_question):
-    """
-    Module returns the tree name, url of tree image
-    and max possible score for a given question number.
-    """
-    quiz_data = read_json_data("static/data/tree_lib.json")
+    quiz_data = read_json_data("static/data/tomato.json")
     max_score = cur_question*10
     for obj in quiz_data:
         if obj["question"] == cur_question:
-            tree_name = obj["tree_name"]
-            tree_image = obj["tree_image"]
-            tree_details=obj["details"]
-            tree_explain=obj["explain"]
+            tomato_answer = obj["tomato_answer"]
+            tomato_image = obj["tomato_image"]
+            tomato_details= obj["details"]
+            tomato_explain= obj["explain"]
 
-    return tree_name, tree_image, max_score,tree_details,tree_explain
+    return tomato_answer, tomato_image, max_score,tomato_details, tomato_explain
 
 
 def add_to_score(cur_player_data):
@@ -103,29 +99,23 @@ def add_to_score(cur_player_data):
     return cur_player_data
 
 
-def process_answer(answer, tree_name, explain,cur_player_data):
+def process_answer(answer, tomato_answer, explain,cur_player_data):
     """
     Module checks if the users entered answer is correct,
     and returns feedback message and whether to allow access to
     next question button.
     """
-    if answer == tree_name:
+    if answer == tomato_answer:
         cur_player_data = add_to_score(cur_player_data)
         cur_player_data["cur_question"] += 1
         feedback_msg = "{} is the correct answer!" \
-                       .format(tree_name.title())
+                       .format(tomato_answer.title())
         hide_next_btn = False
         answer_state = 1
-    # elif answer != tree_name and cur_player_data["attempt"] == 1:
-    #     cur_player_data["attempt"] = 2
-    #     feedback_msg = "{} is not correct, but you still have a second try." \
-    #                    .format(answer.title())
-    #     hide_next_btn = True
-    #     answer_state = 2
     else:
         cur_player_data["cur_question"] += 1
         feedback_msg = "Wrong answer! {} is the correct answer." \
-                       .format(tree_name.title()) + " \n "+explain
+                       .format(tomato_answer.title()) + " \n "+explain
         hide_next_btn = False
         answer_state = 2
 
@@ -199,10 +189,7 @@ def add_to_leaderboard(cur_player_data, leader):
 
 
 def evaluate_result(cur_player_data, leader):
-    """
-    Module compares the user's final result against their past scores
-    and the leaderboard, returns appropriate message.
-    """
+
     score = cur_player_data["cur_score"]
     # Scored 0
     if score == 0:
@@ -252,9 +239,7 @@ def evaluate_result(cur_player_data, leader):
 
 @app.route('/')
 def index():
-    """
-    Home page
-    """
+
     return render_template("index.html",
                            welcome_msg="",
                            hide_start_btn=True,
@@ -264,11 +249,7 @@ def index():
 
 @app.route('/check_username', methods=['GET', 'POST'])
 def check_username():
-    """
-    Module accepts POST of username from index.html and return index.html
-    displaying appropriate welcome message and the next question button when
-    required.
-    """
+
 
     if request.method == "POST":
         username = request.form["username"]
@@ -287,11 +268,7 @@ def check_username():
 
 @app.route('/question/<username>', methods=['GET', 'POST'])
 def question(username):
-    """
-    Module returns either the next question or answer feedback
-    displayed on quiz.html if the current question is less
-    than 10 or game_over.html current question is 10.
-    """
+
     all_players_data = read_json_data("data/players.json")
     cur_player_data, \
         all_players_data = get_cur_player_data(username, all_players_data)
@@ -300,13 +277,13 @@ def question(username):
     # For submitting answer
     if request.method == "POST":
         answer = request.form["answer"].lower()
-        tree_name, tree_image, \
-            max_score,tree_detail,tree_explain = get_q_data(cur_player_data["cur_question"])
+        tomato_answer, tomato_image, \
+            max_score,tomato_detail,tomato_explain = get_q_data(cur_player_data["cur_question"])
         cur_question = cur_player_data["cur_question"]
         # Process_answer() returns cur_player_data for the next question
         message, hide_next_btn, \
             cur_player_data, answer_state = process_answer(answer,
-                                                           tree_name,tree_explain,
+                                                           tomato_answer,tomato_explain,
                                                            cur_player_data)
         # Update players.json
         all_players_data = read_json_data("data/players.json")
@@ -315,9 +292,8 @@ def question(username):
         write_json_data(all_players_data, "data/players.json")
 
         return render_template("quiz.html",
-                               tree_image=tree_image,
+                               tree_image=tomato_image,
                                cur_score=cur_player_data["cur_score"],
-                               # attempt=cur_player_data["attempt"],
                                cur_question=cur_question,
                                max_score=max_score,
                                message=message,
@@ -329,8 +305,8 @@ def question(username):
     # For next question
     elif request.method == "GET" and cur_player_data["cur_question"] <= 10:
         # cur_player_data["attempt"] = 1
-        tree_name, tree_image, \
-            max_score,tree_details,tree_explain = get_q_data(cur_player_data["cur_question"])
+        tomato_answer, tomato_image, \
+            max_score,tomato_details,tomato_explain = get_q_data(cur_player_data["cur_question"])
         # Update players.json
         all_players_data = read_json_data("data/players.json")
         all_players_data = update_all_players_data(cur_player_data,
@@ -338,12 +314,11 @@ def question(username):
         write_json_data(all_players_data, "data/players.json")
 
         return render_template("quiz.html",
-                               tree_image=tree_image,
+                               tree_image=tomato_image,
                                cur_score=cur_player_data["cur_score"],
-                               # attempt=cur_player_data["attempt"],
                                cur_question=cur_player_data["cur_question"],
                                max_score=max_score,
-                               message=tree_details,
+                               message=tomato_details,
                                hide_next_btn=True,
                                answer_state=0,
                                username=username,
@@ -362,7 +337,6 @@ def question(username):
         score_str = str(cur_player_data["cur_score"])
         # Reset game
         cur_player_data["cur_score"] = 0
-        # cur_player_data["attempt"] = 1
         cur_player_data["cur_question"] = 1
         cur_player_data["game_num"] += 1
         # Update players.json
@@ -374,34 +348,21 @@ def question(username):
         return render_template("game_over.html",
                                score_str=score_str,
                                result_msg=result_msg,
-                               leader=leader,
                                username=username,
                                title="Game Over")
     return redirect('/')
 
 
-@app.route('/leaderboard', methods=['GET', 'POST'])
-def leaderboard():
-    """
-    Module returns leaderboard.html.
-    """
-    leaderboard = read_json_data("data/leaderboard.json")
-
-    return render_template("leaderboard.html",
-                           leaderboard=leaderboard,
-                           title="Leaderboard")
 
 
 @app.route('/instructions/')
 def instructions():
-    """
-    Module returns instructions.html.
-    """
+
     return render_template("instructions.html",
                            title="Instructions")
 
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('0.0.0.0'),
-            port=int(80),
+            port=int(5000),
             debug=False)
