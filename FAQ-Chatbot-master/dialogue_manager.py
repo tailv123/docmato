@@ -75,22 +75,23 @@ def to_df(table_name):
     df=pd.DataFrame([list(i) for i in fetch_table_data(table_name)[1][1:]], columns =list(fetch_table_data(table_name)[1][0]), dtype = float)
     return df
 
-# dataset = pd.read_csv("Q&A for mosaic.csv", encoding='utf-8')
-# module_url = "https://tfhub.dev/google/universal-sentence-encoder-large/5"
-# model = hub.load(module_url)
-# def embed(input):
-#   return model(preprocess_sentences([input]))
-# dataset['Question_Vector'] = dataset.Questions.map(embed)
-# dataset['Question_Vector'] = dataset.Question_Vector.map(np.array)
-# dataset.to_csv('data_vector.csv',index=False)
+dataset = pd.read_csv("Q&A for mosaic.csv", encoding='utf-8')
+module_url = "/Users/letai/Downloads/universal-sentence-encoder-large_5"
+model = hub.load(module_url)
+def embed(input):
+   return model(preprocess_sentences([input]))
+dataset['Question_Vector'] = dataset.Questions.map(embed)
+dataset['Question_Vector'] = dataset.Question_Vector.map(np.array)
+dataset.to_csv('data_vector.csv',index=False)
 
 
 class DialogueManager(object):
     def __init__(self):
+
         #self.model = tf.saved_model.load("../data/tmp/mobilenet/1/")
-        self.model = hub.load("https://tfhub.dev/google/universal-sentence-encoder-large/5")
-        self.dataset = to_df('data_vector')
-        self.questions = self.dataset.Questions
+        self.model = hub.load("/Users/letai/Downloads/universal-sentence-encoder-large_5")
+        self.dataset = dataset
+        self.questions = dataset.Questions
         self.QUESTION_VECTORS = np.array(self.dataset.Question_Vector)
         self.COSINE_THRESHOLD = 0.5
         self.chitchat_bot = ChatBot(
@@ -122,7 +123,7 @@ class DialogueManager(object):
         query_vec = np.array(self.embed(query))
         res = []
         for i, d in enumerate(data):
-            qvec = np.asarray(vectors[i][3:-2].split(),dtype='float').ravel()
+            qvec = np.asarray(vectors[i]).ravel()
             sim = self.cosine_similarity(query_vec, qvec)
             res.append((sim, d[:100], i))
         return sorted(res, key=lambda x: x[0], reverse=True)
